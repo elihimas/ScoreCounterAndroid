@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "ScoreCounter"
 include(":app")
- 
+include(":nextscreenresolver")
