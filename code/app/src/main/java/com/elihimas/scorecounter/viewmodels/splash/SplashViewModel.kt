@@ -9,7 +9,10 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.consumeAsFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -17,8 +20,8 @@ import javax.inject.Inject
 class SplashViewModel @Inject constructor(private val initialScreenResolver: InitialScreenResolver) :
     ViewModel() {
 
-    private val _initialScreen = Channel<InitialScreen>()
-    val initialScreen: Flow<InitialScreen> = _initialScreen.consumeAsFlow()
+    private val _initialScreen = MutableStateFlow<InitialScreen?>(null)
+    val initialScreen: Flow<InitialScreen?> = _initialScreen
 
     init {
         resolveNextScreen()
@@ -31,7 +34,7 @@ class SplashViewModel @Inject constructor(private val initialScreenResolver: Ini
             delay(splashDuration)
 
             val initialScreen = deferredNextScreen.await()
-            _initialScreen.send(initialScreen)
+            _initialScreen.update { initialScreen }
         }
     }
 

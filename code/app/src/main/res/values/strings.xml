@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">ScoreCounter</string>
+
+    <string name="ask_add_players_or_use_guest">Should we add players or use guests?</string>
+    <string name="use_guest">Use guests</string>
+    <string name="define_player">Define players</string>
+    <string name="message_no_players">No players added</string>
+    <string name="title_add_players_screen">Players</string>
+    <string name="button_add">Add</string>
+    <string name="message_repeated_player">Repeated player</string>
 </resources>
