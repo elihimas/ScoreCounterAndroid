@@ -1,5 +1,6 @@
 package com.elihimas.scorecounter.ui.navgraph
 
+import android.content.Context
 import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -17,7 +18,7 @@ import com.elihimas.scorecounter.ui.screens.GamesListScreen
 import com.elihimas.scorecounter.ui.screens.SplashScreen
 import com.elihimas.scorecounter.ui.screens.appplayers.AddPlayersScreen
 import com.elihimas.scorecounter.viewmodels.addplayer.AddPlayerMessages
-import com.elihimas.scorecounter.viewmodels.addplayer.AddPlayerState
+import com.elihimas.scorecounter.viewmodels.addplayer.AddPlayersState
 import com.elihimas.scorecounter.viewmodels.addplayer.AddPlayerViewModel
 import kotlinx.coroutines.flow.collectLatest
 
@@ -37,18 +38,18 @@ fun NavGraph() {
 
         composable(Screens.AddPlayers.getRoute()) {
             val viewModel: AddPlayerViewModel = hiltViewModel()
-            val state = viewModel.state.collectAsState(initial = AddPlayerState()).value
+            val state = viewModel.state.collectAsState(initial = AddPlayersState()).value
             val context = LocalContext.current
 
             LaunchedEffect(Unit) {
                 viewModel.messages.collectLatest { addPlayerMessage ->
-                    val messageResId = addPlayerMessage.toResId()
-
-                    Toast.makeText(
-                        context,
-                        messageResId,
-                        Toast.LENGTH_LONG
-                    ).show()
+                    when (addPlayerMessage) {
+                        AddPlayerMessages.RepeatedPlayer -> showRepeatedPlayer(context)
+                        AddPlayerMessages.NavigateToGames -> {
+                            navController.popBackStack()
+                            navController.navigate(Screens.GamesList.getRoute())
+                        }
+                    }
                 }
             }
 
@@ -70,8 +71,12 @@ fun NavGraph() {
     }
 }
 
-private fun AddPlayerMessages.toResId() = when (this) {
-    AddPlayerMessages.RepeatedPlayer -> R.string.message_repeated_player
+fun showRepeatedPlayer(context: Context) {
+    Toast.makeText(
+        context,
+        R.string.message_repeated_player,
+        Toast.LENGTH_LONG
+    ).show()
 }
 
 private fun InitialScreen.toScreen() = when (this) {

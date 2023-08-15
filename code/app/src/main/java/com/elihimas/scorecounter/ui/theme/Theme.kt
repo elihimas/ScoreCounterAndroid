@@ -73,7 +73,8 @@ fun ScoreCounterTheme(
 }
 
 object FontSizes {
-    val hugeFont = 30.sp
+    val huge = 30.sp
+    val big = 22.sp
 }
 
 object Modifiers{

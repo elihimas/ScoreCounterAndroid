@@ -16,11 +16,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.elihimas.scorecounter.ui.theme.ScoreCounterTheme
 import com.elihimas.scorecounter.viewmodels.Player
-import com.elihimas.scorecounter.viewmodels.addplayer.AddPlayerIntent
+import com.elihimas.scorecounter.viewmodels.addplayer.AddPlayersIntents
 
 
 @Composable
-fun PlayerRow(player: Player, intentHandler: (AddPlayerIntent) -> Unit) {
+fun PlayerRow(player: Player, intentHandler: (AddPlayersIntents) -> Unit) {
     Row(Modifier.padding(10.dp), verticalAlignment = Alignment.CenterVertically) {
         Text(text = player.name)
 
@@ -32,7 +32,7 @@ fun PlayerRow(player: Player, intentHandler: (AddPlayerIntent) -> Unit) {
 
         Box(modifier = Modifier.width(10.dp))
 
-        Button(onClick = { intentHandler(AddPlayerIntent.RemovePlayer(player)) }) {
+        Button(onClick = { intentHandler(AddPlayersIntents.RemovePlayer(player)) }) {
             Text(text = "remove")
         }
     }
