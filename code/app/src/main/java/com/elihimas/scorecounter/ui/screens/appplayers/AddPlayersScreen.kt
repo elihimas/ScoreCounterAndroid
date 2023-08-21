@@ -55,7 +55,7 @@ fun AddPlayersScreenPreview() {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            AddPlayersScreen(AddPlayersState(), intentHandler = {})
+            AddPlayersScreen(AddPlayersState(currentStep = AddPlayerStep.AddPlayers), intentHandler = {})
         }
     }
 }

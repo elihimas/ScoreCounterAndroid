@@ -1,10 +1,11 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
 }
 
 android {
-    namespace = "com.elihimas.repository"
+    namespace = "com.elihimas.model"
     compileSdk = 34
 
     defaultConfig {
@@ -27,11 +28,17 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-
     kotlinOptions {
         jvmTarget = "17"
     }
 }
-dependencies {
-    implementation(project(mapOf("path" to ":repository")))
+
+dependencies{
+    // room
+    val roomVersion = "2.5.2"
+    implementation("androidx.room:room-runtime:$roomVersion")
+    implementation ("androidx.room:room-ktx:$roomVersion")
+    annotationProcessor ("androidx.room:room-compiler:$roomVersion")
+    implementation ("androidx.room:room-paging:$roomVersion")
+    kapt ("androidx.room:room-compiler:$roomVersion")
 }

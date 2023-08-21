@@ -3,7 +3,10 @@ package com.elihimas.scorecounter.viewmodels.addplayer
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.elihimas.scorecounter.viewmodels.Player
+import com.elihimas.model.Player
+import com.elihimas.repository.Repository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -11,8 +14,10 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AddPlayerViewModel : ViewModel() {
+@HiltViewModel
+class AddPlayerViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
     private val _state = MutableStateFlow(AddPlayersState())
     val state = _state.asStateFlow()
@@ -25,7 +30,7 @@ class AddPlayerViewModel : ViewModel() {
             AddPlayersIntents.DefinePlayersSelected -> handleDefinePlayersSelected()
             AddPlayersIntents.UseGuestSelected -> handleUseGuestSelected()
             AddPlayersIntents.NavigateBack -> handleNavigateBack()
-            AddPlayersIntents.Finish -> handleFinish()
+            AddPlayersIntents.NavigateNext -> handleNext()
             AddPlayersIntents.Confirm -> handleConfirm()
             AddPlayersIntents.ConfirmEmptyItems.Confirm -> handleConfirmEmptyItems()
             AddPlayersIntents.ConfirmEmptyItems.Dismiss -> handleDismissEmptyItems()
@@ -41,7 +46,11 @@ class AddPlayerViewModel : ViewModel() {
         }
 
         viewModelScope.launch {
-            delay(1000)
+            val minimumTimeWait = async { delay(1000) }
+
+            repository.savePlayers(_state.value.players)
+
+            minimumTimeWait.await()
             _messages.emit(AddPlayerMessages.NavigateToGames)
         }
 
@@ -63,7 +72,7 @@ class AddPlayerViewModel : ViewModel() {
         }
     }
 
-    private fun handleFinish() {
+    private fun handleNext() {
         val hasPlayers = _state.value.players.isNotEmpty()
 
         if (hasPlayers) {

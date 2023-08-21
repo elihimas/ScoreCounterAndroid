@@ -1,6 +1,6 @@
 package com.elihimas.scorecounter.viewmodels.addplayer
 
-import com.elihimas.scorecounter.viewmodels.Player
+import com.elihimas.model.Player
 
 enum class AddPlayerStep {
     AskAddPlayersOrUseGuest,

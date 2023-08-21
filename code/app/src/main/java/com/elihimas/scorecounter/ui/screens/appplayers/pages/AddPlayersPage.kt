@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.elihimas.model.Player
 import com.elihimas.scorecounter.R
 import com.elihimas.scorecounter.ui.commons.Centered
 import com.elihimas.scorecounter.ui.commons.PageTitle
@@ -22,7 +23,6 @@ import com.elihimas.scorecounter.ui.screens.appplayers.PreviousFinishControls
 import com.elihimas.scorecounter.ui.screens.appplayers.ShowConfirmEmptyItemsIfNecessary
 import com.elihimas.scorecounter.ui.theme.FontSizes
 import com.elihimas.scorecounter.ui.theme.ScoreCounterTheme
-import com.elihimas.scorecounter.viewmodels.Player
 import com.elihimas.scorecounter.viewmodels.addplayer.AddPlayersIntents
 import com.elihimas.scorecounter.viewmodels.addplayer.AddPlayersState
 
@@ -71,7 +71,7 @@ fun AddPlayersPreview() {
         ) {
             val players = listOf(Player("Arthur"), Player("João"))
             AddPlayersPage(
-                AddPlayersState(players = players.toMutableList().apply { clear() }),
+                AddPlayersState(players = players),
                 intentHandler = {})
         }
     }

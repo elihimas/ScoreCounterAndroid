@@ -1,6 +1,6 @@
 package com.elihimas.scorecounter.viewmodels.addplayer
 
-import com.elihimas.scorecounter.viewmodels.Player
+import com.elihimas.model.Player
 
 sealed class AddPlayersIntents {
     object UseGuestSelected : AddPlayersIntents()
@@ -9,7 +9,7 @@ sealed class AddPlayersIntents {
     data class RemovePlayer(val player: Player) : AddPlayersIntents()
     data class EditPlayer(val newName: String, val playerPosition: Int) : AddPlayersIntents()
     object NavigateBack : AddPlayersIntents()
-    object Finish : AddPlayersIntents()
+    object NavigateNext : AddPlayersIntents()
 
     object Confirm : AddPlayersIntents()
 

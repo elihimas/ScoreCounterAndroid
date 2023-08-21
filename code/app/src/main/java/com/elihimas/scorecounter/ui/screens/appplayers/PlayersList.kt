@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.elihimas.scorecounter.viewmodels.Player
+import com.elihimas.model.Player
 
 @Composable
 fun ColumnScope.Players(players: List<Player>) {

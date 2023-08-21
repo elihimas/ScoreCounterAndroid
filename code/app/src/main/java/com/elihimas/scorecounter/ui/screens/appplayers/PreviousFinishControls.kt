@@ -10,8 +10,8 @@ import com.elihimas.scorecounter.viewmodels.addplayer.AddPlayersIntents
 fun PreviousFinishControls(intentHandler: (AddPlayersIntents) -> Unit) {
     TwoButtonsRow(
         firstButtonText = stringResource(R.string.button_return),
-        secondButtonText = stringResource(R.string.button_finish),
+        secondButtonText = stringResource(R.string.button_next),
         firstButtonClick = { intentHandler(AddPlayersIntents.NavigateBack) },
-        secondButtonClick = { intentHandler(AddPlayersIntents.Finish) }
+        secondButtonClick = { intentHandler(AddPlayersIntents.NavigateNext) }
     )
 }

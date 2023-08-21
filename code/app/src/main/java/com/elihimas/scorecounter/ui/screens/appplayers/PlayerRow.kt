@@ -14,8 +14,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.elihimas.model.Player
 import com.elihimas.scorecounter.ui.theme.ScoreCounterTheme
-import com.elihimas.scorecounter.viewmodels.Player
 import com.elihimas.scorecounter.viewmodels.addplayer.AddPlayersIntents
 
 
